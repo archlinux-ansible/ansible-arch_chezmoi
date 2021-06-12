@@ -1,0 +1,9 @@
+---
+
+- name: Ensure Chezmoi installed
+  pacman:
+    name: chemzoi
+    state: present
+
+- name: Install Chezmoi dotfiles
+  command: "chezmoi init --apply {{ chezmoi__github_user }}"
