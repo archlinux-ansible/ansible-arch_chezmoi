@@ -1,4 +1,4 @@
-# arch_packages
+# arch_chezmoi
 
 Role to install chezmoi and fetch my dotfiles.
 
