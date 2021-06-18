@@ -2,8 +2,12 @@
 
 - name: Ensure Chezmoi installed
   pacman:
-    name: chemzoi
+    name: chezmoi
     state: present
 
 - name: Install Chezmoi dotfiles
-  command: "chezmoi init --apply {{ chezmoi__github_user }}"
+  shell: "chezmoi init --apply {{ chezmoi__github_user }}"
+  register: chezmoi
+  become: yes
+  become_user: alex
+  changed_when: "'Cloning into' in chezmoi.stderr"
