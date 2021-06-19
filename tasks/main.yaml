@@ -5,7 +5,7 @@
     name:
       - chezmoi
       - git-lfs
-      state: present
+    state: present
 
 - name: Ensure LFS set up
   command: git lfs install
