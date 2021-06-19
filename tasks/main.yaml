@@ -1,9 +1,17 @@
 ---
 
-- name: Ensure Chezmoi installed
+- name: Ensure Chezmoi & LFS installed
   pacman:
-    name: chezmoi
-    state: present
+    name:
+      - chezmoi
+      - git-lfs
+      state: present
+
+- name: Ensure LFS set up
+  command: git lfs install
+  changed_when: no
+  become: yes
+  become_user: alex
 
 - name: Install Chezmoi dotfiles
   shell: "chezmoi init --apply {{ chezmoi__github_user }}"
@@ -11,3 +19,11 @@
   become: yes
   become_user: alex
   changed_when: "'Cloning into' in chezmoi.stderr"
+
+- name: Get wallpapers
+  git:
+    repo: "{{ chezmoi__wallpapers }}"
+    depth: 1
+    version: master
+  become: yes
+  become_user: alex
