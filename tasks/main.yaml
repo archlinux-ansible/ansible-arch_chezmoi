@@ -8,10 +8,8 @@
     state: present
 
 - name: Ensure LFS set up
-  command: git lfs install
+  command: git lfs install --system
   changed_when: no
-  become: yes
-  become_user: alex
 
 - name: Install Chezmoi dotfiles
   shell: "chezmoi init --apply {{ chezmoi__github_user }}"
@@ -23,6 +21,7 @@
 - name: Get wallpapers
   git:
     repo: "{{ chezmoi__wallpapers }}"
+    dest: /home/alex/.local/share/wallpapers
     depth: 1
     version: master
   become: yes
